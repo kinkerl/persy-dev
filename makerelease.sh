@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#switch to the persy root directory
+cd ../persy
+
+
 gpgkey="AF005C40"
 version=""
 
