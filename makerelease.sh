@@ -79,6 +79,7 @@ upload_source_changes()
 
 test_persy()
 {
+    #pychecker does some tests and checks for errors in the source code
     echo "Starting Tests"
     if [ -z `which pychecker` ]; then
         echo -e "Skip (pychecker not installed)"
