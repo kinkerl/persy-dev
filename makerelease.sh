@@ -77,6 +77,16 @@ upload_source_changes()
     dput -f  ppa:tmassassin/ppa ../persy_${version}_source.changes
 }
 
+test_persy()
+{
+    echo "Starting Tests"
+    if [ -z `which pychecker` ]; then
+        echo -e "Skip (pychecker not installed)"
+    else
+        pychecker usr/lib/persy/persy.py
+    fi
+}
+
 #run
 opt=$1
 case $opt in
@@ -96,8 +106,11 @@ case $opt in
             make_build
             build_deb_package
             ;;
+    "test")  
+            test_persy
+            ;;
     *)
-        echo "Usage: `pwd`/$0 {release|makedeb|public-doc}"
+        echo "Usage: `pwd`/$0 {release|makedeb|public-doc|test}"
         exit 1
         ;;
 esac
