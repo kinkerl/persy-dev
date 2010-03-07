@@ -19,7 +19,7 @@ continue_release()
     echo ""
     echo -n "Continue releasing persy-${version} ? (y/n): "
     read answer
-    if [ "$answer" -ne "y" ]; then
+    if [ "$answer" != "y" ]; then
         echo "Exit."
         exit 0
     fi
@@ -80,12 +80,21 @@ upload_source_changes()
 test_persy()
 {
     #pychecker does some tests and checks for errors in the source code
-    echo "Starting Tests"
+    echo "pychecker tests..."
     if [ -z `which pychecker` ]; then
         echo -e "Skip (pychecker not installed)"
     else
-        pychecker usr/lib/persy/persy.py
+        pychecker usr/lib/persy/*.py
     fi
+    echo "pyflakes tests..."
+
+    #same with pyflakes
+    if [ -z `which pyflakes` ]; then
+        echo -e "Skip (pyflakes not installed)"
+    else
+        pyflakes usr/lib/persy/*.py
+    fi
+
 }
 
 #run
