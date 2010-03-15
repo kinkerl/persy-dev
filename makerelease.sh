@@ -11,7 +11,7 @@ make_build()
 {
     echo "Running configure and make"
     ./configure && make
-    version="`cat usr/lib/persy/VERSION`"
+    version="`cat usr/share/persy/assets/VERSION`"
 }
 
 continue_release()
