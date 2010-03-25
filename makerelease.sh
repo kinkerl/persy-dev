@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Current working dir
+workdir="`pwd`"
+
 #switch to the persy root directory
 cd ../persy
 
@@ -71,6 +74,19 @@ build_deb_package()
     echo "Build finished; Get the debian package at ../persy_${version}_all.deb"
 }
 
+build_tar_package()
+{
+    echo "Start building tar.gz package..."
+    mkdir ${workdir}/persy-${version}
+    make clean
+    rm Makefile
+    cp -rf * ${workdir}/persy-${version}
+    cd ${workdir}
+    tar cvzf persy-${version}.tar.gz persy-${version}
+    rm -rf persy-${version}
+    echo "Build finished; Get the tar.gz package at ${PWD}/persy-${version}.tar.gz"
+}
+
 upload_source_changes()
 {
     echo "Uploading source changes to ppa"
@@ -84,7 +100,7 @@ test_persy()
     if [ -z `which pychecker` ]; then
         echo -e "Skip (pychecker not installed)"
     else
-        pychecker usr/lib/persy/*.py
+        pychecker usr/share/persy/lib/*.py
     fi
     echo "pyflakes tests..."
 
@@ -92,7 +108,7 @@ test_persy()
     if [ -z `which pyflakes` ]; then
         echo -e "Skip (pyflakes not installed)"
     else
-        pyflakes usr/lib/persy/*.py
+        pyflakes usr/share/persy/lib/*.py
     fi
 
 }
@@ -116,11 +132,15 @@ case $opt in
             make_build
             build_deb_package
             ;;
+    "maketar")
+            make_build
+            build_tar_package
+            ;;
     "test")  
             test_persy
             ;;
     *)
-        echo "Usage: `pwd`/$0 {release|makedeb|public-doc|test}"
+        echo "Usage: `pwd`/$0 {release|makedeb|maketar|public-doc|test}"
         exit 1
         ;;
 esac
