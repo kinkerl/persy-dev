@@ -1,0 +1,61 @@
+diff --git a/configure b/configure
+index 6a53be1..f180874 100755
+--- a/configure
++++ b/configure
+@@ -22,56 +22,6 @@ for langdir in `ls -d usr/lib/persy/locale/*/`; do
+ done
+ echo -e ""
+ 
+-#app tests
+-apps="python git xterm"
+-for app in $apps; do
+-    echo -n "Checking for $app... "
+-    if [ -z `which $app 2> /dev/null` ]; then
+-        echo -e "no"
+-        exit 1
+-    else
+-        echo -e "yes"
+-    fi
+-done
+-
+-#python module tests
+-pymods="gettext getpass platform paramiko subprocess pynotify pyinotify gtk gtk.glade pygtk webbrowser configobj"
+-failedpymods=""
+-for pymod in $pymods; do
+-    echo -n "Checking for python module $pymod... "
+-    python -c "import $pymod" 2> /dev/null
+-    retval=$?
+-    if [ "$retval" -eq "0" ]; then
+-        echo "yes"
+-    else
+-        echo "no"
+-        failedpymods="$failedpymods $pymod"
+-    fi
+-done
+-
+-if [ "$failedpymods" != "" ]; then
+-    echo -e "\nMissing python modules:$failedpymods"
+-    echo "Exit."
+-    exit 1
+-fi
+-
+-#check if gitk or qgit is installed
+-guis="qgit gitk"
+-for gui in $guis; do
+-    echo -n "Checking for $gui... "
+-    if [ -z `which $gui 2> /dev/null` ]; then
+-        echo -e "no"
+-        failedguis="$failedguis $gui"
+-    else
+-        echo -e "yes"
+-    fi
+-done
+-
+-if [ "$failedguis" = "$guis" ]; then
+-    echo -e "neither qgit nor gitk is installed"
+-    exit 1
+-fi
+-
+ #Start Makefile
+ echo -e "LANGS=$langs" >> Makefile
+ echo -e "SHELL=`which sh`" >> Makefile
