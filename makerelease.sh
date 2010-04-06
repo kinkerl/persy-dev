@@ -63,6 +63,13 @@ publish_doc()
 build_src_package()
 {
     echo "Building debian source package..."
+    echo -n "Checking for debuild... "
+    if [ -z `which debuild 2> /dev/null` ]; then
+        echo -e "no"
+        exit 1
+    else
+        echo -e "yes"
+    fi
     debuild -S -sa -k${gpgkey} -i.git -I.git
     echo "Build finished; Get the debian package at ../persy_${version}.tar.gz"
 }
@@ -70,6 +77,13 @@ build_src_package()
 build_deb_package()
 {
     echo "Start building debian package..."
+    echo -n "Checking for debuild... "
+    if [ -z `which debuild 2> /dev/null` ]; then
+        echo -e "no"
+        exit 1
+    else
+        echo -e "yes"
+    fi   
     debuild -i.git -I.git
     echo "Build finished; Get the debian package at ../persy_${version}_all.deb"
 }
