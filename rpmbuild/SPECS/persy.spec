@@ -1,5 +1,5 @@
 Name:           persy
-Version:        0.9
+Version:        0.9.1
 Release:        1%{?dist}
 Summary:        personal synchronization application - based on git
 
@@ -10,7 +10,7 @@ BuildArch:      noarch
 Source0:        http://rserver.de/download/%{name}/%{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Patch0:         %{name}-0.9.patch
+Patch0:         %{name}-${version}.patch
 
 BuildRequires:  gettext python-sphinx python-devel
 Requires:       git gitk python pygtk2 pygtk2-libglade
@@ -58,5 +58,5 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Wed Mar 10 2010 Rafael Roemhild <rafael@roemhild.de> 0.9-1
+* Wed Apr 10 2010 Rafael Roemhild <rafael@roemhild.de> 0.9.1-1
 - Initial packaging
