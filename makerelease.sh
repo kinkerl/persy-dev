@@ -3,9 +3,6 @@
 # Current working dir
 workdir="`pwd`"
 
-#switch to the persy root directory
-cd ../persy
-
 
 gpgkey="AF005C40"
 version=""
